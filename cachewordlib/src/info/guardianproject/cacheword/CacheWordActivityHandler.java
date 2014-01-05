@@ -19,7 +19,7 @@ public class CacheWordActivityHandler extends CacheWordHandler {
      * Call this method in your Activity's onPause()
      */
     public void onPause() {
-        disconnect();
+        disconnect(false);
     }
 
 }

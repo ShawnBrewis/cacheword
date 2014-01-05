@@ -82,7 +82,7 @@ public class CacheWordHandler {
     /**
      * Disconnect from the CacheWord service. No further CacheWord events will be received.
      */
-    public void disconnect() {
+    public void disconnect(boolean stopService) {
         synchronized (this) {
             mConnected = false;
         }
@@ -91,8 +91,14 @@ public class CacheWordHandler {
             mCacheWordService = null;
         }
         if( mBound ) {
-            mContext.unbindService(mCacheWordServiceConnection);
+        	mContext.unbindService(mCacheWordServiceConnection);
             mBound = false;
+        }
+        
+        if (stopService)
+        {
+        	mContext.stopService(CacheWordService
+                    .getBlankServiceIntent(mContext.getApplicationContext()));
         }
     }
 
